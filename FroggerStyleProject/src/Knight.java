@@ -1,11 +1,12 @@
-/*import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
 
-public class Sprite{
+public class Knight{
 	private Image forward, backward, left, right; 	
 	private AffineTransform tx;
 	
@@ -13,18 +14,18 @@ public class Sprite{
 	int width, height;
 	int x, y;						//position of the object
 	int vx, vy;						//movement variables
-	double scaleWidth = 1.0;		//change to scale image
-	double scaleHeight = 1.0; 		//change to scale image
+	double scaleWidth = .25;		//change to scale image
+	double scaleHeight = .25; 		//change to scale image
 
-	public Sprite() {
-		forward 	= getImage("/imgs/"+"forwardFile.png"); //load the image for Tree
-		backward 	= getImage("/imgs/"+"backward.png"); //load the image for Tree
-		left 		= getImage("/imgs/"+"left.png"); //load the image for Tree
-		right 		= getImage("/imgs/"+"right.png"); //load the image for Tree
+	public Knight() {
+		forward 	= getImage("/imgs/"+"Knight.png"); //load the image for Tree
+		//backward 	= getImage("/imgs/"+"backward.png"); //load the image for Tree
+		//left 		= getImage("/imgs/"+"left.png"); //load the image for Tree
+		//right 		= getImage("/imgs/"+"right.png"); //load the image for Tree
 
 		//alter these
-		width = 0;
-		height = 0;
+		width = 50;
+		height = 80;
 		x = 0;
 		y = 0;
 		vx = 0;
@@ -36,6 +37,46 @@ public class Sprite{
 									//use your variables
 		
 	}
+	
+	public void move(int dir) {
+		switch(dir) {
+		case 0://up
+			y-=100;//move up a body-length
+			break;
+		case 1://down
+			y+=100;
+			break;
+		case 2://left
+			x-=width;
+			break;
+		case 3://right
+			x+=width;
+			break;
+		}
+	}
+	
+
+	
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
+	}
+	public int getWidth() {
+		return width;
+	}
+	public int getHeight() {
+		return height;
+	}
+	
+	
+	public Knight (int x, int y) {
+		this();
+		this.x = x;
+		this.y = y;
+	}
+	
 
 	public void paint(Graphics g) {
 		//these are the 2 lines of code needed draw an image on the screen
@@ -62,6 +103,11 @@ public class Sprite{
 			g2.drawImage(right, tx, null);
 			break;
 		}
+		
+		if(Frame.debugging) {
+			g.setColor(Color.red);
+			g.drawRect(x, y, width, height);
+		}
 
 	}
 	
@@ -73,7 +119,7 @@ public class Sprite{
 	private Image getImage(String path) {
 		Image tempImage = null;
 		try {
-			URL imageURL = Sprite.class.getResource(path);
+			URL imageURL = Knight.class.getResource(path);
 			tempImage = Toolkit.getDefaultToolkit().getImage(imageURL);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,4 +127,4 @@ public class Sprite{
 		return tempImage;
 	}
 
-}*/
+}
